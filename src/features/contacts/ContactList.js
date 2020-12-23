@@ -21,7 +21,12 @@ const ContactList = ({
     return (
         <List className="contact-list" data-testid="contact-list">
             {(contacts || []).map(contact => (
-                <ListItem key={contact.id} button className="contact-item">
+                <ListItem
+                    key={contact.id}
+                    data-testid="contact-item"
+                    button
+                    className="contact-item"
+                >
                     {showSelection ? (
                         <ListItemIcon>
                             <Checkbox
@@ -31,6 +36,7 @@ const ContactList = ({
                                     onToggle(contact, e.target.checked)
                                 }
                                 disableRipple
+                                data-testid="contact-item-checkbox"
                             />
                         </ListItemIcon>
                     ) : null}

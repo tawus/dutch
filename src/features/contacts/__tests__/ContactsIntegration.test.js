@@ -25,6 +25,9 @@ test('render contacts and check details navigation', () => {
 
     act(() => {
         userEvent.click(screen.getAllByTestId('contact-menu-trigger')[1]);
+    });
+
+    act(() => {
         userEvent.click(screen.getAllByTestId('contact-menu-details')[1]);
     });
 });
