@@ -7,26 +7,57 @@ import { push } from 'connected-react-router';
 import App from '../../../App';
 import { act } from 'react-dom/test-utils';
 
-test('render contacts and check deletion', () => {
+test('render groups and check creation', () => {
     insertGroupData(store);
     render(appRenderer(<App />));
+    act(() => {
+        store.dispatch(push('/'));
+    });
+
+    expect(screen.getByTestId('group-list').children.length).toBe(2);
 
     act(() => {
         store.dispatch(push('/groups/new'));
     });
-    /*    const saveBtn = screen.getByTestId('group-save');
+
+    const nextBtn = screen.getByTestId('group-next');
+
+    const [name, amount] = screen.getAllByRole('textbox');
+    expect(nextBtn['disabled']).toBe(true);
+
+    act(() => {
+        userEvent.type(name, 'Group #1');
+    });
+    expect(nextBtn['disabled']).toBe(true);
+
+    act(() => {
+        userEvent.type(amount, '56.79');
+    });
+    expect(nextBtn['disabled']).toBe(false);
+
+    act(() => {
+        userEvent.click(nextBtn);
+    });
+
     const list = screen.getByTestId('contact-list').children;
-    const name = screen.getByTestId('group-name');
-    const amount = screen.getByTestId('group-bill-amount');
     expect(list.length).toBe(3);
 
-    userEvent.click(list[2].querySelector('input'));
+    const saveBtn = screen.getByTestId('group-save');
+    const itemClick = item => {
+        userEvent.click(screen.getAllByRole('checkbox')[item]);
+    };
 
     expect(saveBtn['disabled']).toBe(true);
-    userEvent.type(name, 'Group #1');
-    expect(saveBtn['disabled']).toBe(true);
-    userEvent.type(amount, '56.79');
+    act(() => {
+        itemClick(0);
+        itemClick(1);
+    });
+
     expect(saveBtn['disabled']).toBe(false);
 
-    userEvent.click(saveBtn);*/
+    act(() => {
+        userEvent.click(saveBtn);
+    });
+
+    expect(screen.getByTestId('group-list').children.length).toBe(3);
 });

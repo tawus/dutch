@@ -16,7 +16,7 @@ const selectFilter = state => state.contactsFilter;
 const nameSorter = (x, y) => {
     const xname = x.name.toUpperCase();
     const yname = y.name.toUpperCase();
-    return xname < yname ? -1 : xname > yname ? -1 : 0;
+    return xname < yname ? -1 : xname > yname ? 1 : 0;
 };
 
 export const selectFilteredContacts = createSelector(
@@ -78,4 +78,5 @@ export default connect(
 
 export const testables = {
     Contacts,
+    nameSorter,
 };

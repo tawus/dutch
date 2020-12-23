@@ -16,7 +16,7 @@ const archivedAndNameSorter = (x, y) => {
     const xname = x.name.toUpperCase();
     const yname = y.name.toUpperCase();
     if (x.archived === y.archived) {
-        return xname < yname ? -1 : xname > yname ? -1 : 0;
+        return xname < yname ? -1 : xname > yname ? 1 : 0;
     } else if (x.archived) {
         return 1;
     } else {
@@ -75,4 +75,4 @@ export default connect(
     mapDispatchToProps
 )(Groups);
 
-export const testables = { Groups };
+export const testables = { Groups, archivedAndNameSorter };

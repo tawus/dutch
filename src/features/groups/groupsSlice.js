@@ -30,21 +30,40 @@ const groupsSlice = createSlice({
             }
         },
 
-        setPaid: (state, action) => {
-            const { groupId, memberId, paid } = action.payload;
+        togglePaid: (state, action) => {
+            const { groupId, memberId } = action.payload;
             const group = state[groupId];
-            group.members[memberId].paid = paid;
-            group.archived = Object.values(group.members).every(
-                ({ paid }) => paid
-            );
+            group.members[memberId].paid = !group.members[memberId].paid;
+            updateArchiveStatus(group);
+        },
+
+        removeMember: (state, action) => {
+            const { groupId, memberId } = action.payload;
+            const group = state[groupId];
+            delete group.members[memberId];
+            updateArchiveStatus(group);
         },
 
         removeGroup: (state, action) => {
             delete state[action.payload];
         },
+
+        clearGroups: state => {
+            state = undefined;
+        },
     },
 });
 
-export const { addGroup, setPaid, removeGroup } = groupsSlice.actions;
+const updateArchiveStatus = group => {
+    group.archived = Object.values(group.members).every(({ paid }) => paid);
+};
+
+export const {
+    removeMember,
+    addGroup,
+    togglePaid,
+    removeGroup,
+    clearGroups,
+} = groupsSlice.actions;
 
 export default groupsSlice.reducer;

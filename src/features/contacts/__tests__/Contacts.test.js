@@ -5,23 +5,25 @@ import userEvent from '@testing-library/user-event';
 import appRenderer from '../../../appRenderer';
 import { act } from 'react-dom/test-utils';
 
-const { Contacts } = testables;
+const { Contacts, nameSorter } = testables;
 
 test('render contacts and see if contacts are rendered', () => {
     const setFilter = jest.fn();
     const removeContact = jest.fn();
 
-    render(
-        appRenderer(
-            <Contacts
-                contacts={testContacts}
-                setFilter={setFilter}
-                removeContact={removeContact}
-                filter={{ text: '' }}
-                push={jest.fn()}
-            />
-        )
-    );
+    act(() => {
+        render(
+            appRenderer(
+                <Contacts
+                    contacts={testContacts}
+                    setFilter={setFilter}
+                    removeContact={removeContact}
+                    filter={{ text: '' }}
+                    push={jest.fn()}
+                />
+            )
+        );
+    });
 
     const list = screen.getByTestId('contact-list').children;
     expect(list.length).toBe(3);
@@ -51,8 +53,10 @@ test('render contacts and check contact details traversal', () => {
 
     const list = screen.getByTestId('contact-list');
     expect(list.children.length).toBe(3);
-    userEvent.click(screen.getAllByTestId('contact-menu-trigger')[0]);
-    userEvent.click(screen.getAllByTestId('contact-menu-details')[0]);
+    act(() => {
+        userEvent.click(screen.getAllByTestId('contact-menu-trigger')[0]);
+        userEvent.click(screen.getAllByTestId('contact-menu-details')[0]);
+    });
     expect(push).toHaveBeenCalledWith('/contacts/1');
 });
 
@@ -74,7 +78,10 @@ test('navigation to add contact works', () => {
     );
 
     const addContactBtn = screen.getByTestId('add-contact-nav-btn');
-    userEvent.click(addContactBtn);
+
+    act(() => {
+        userEvent.click(addContactBtn);
+    });
 
     expect(push).toHaveBeenCalledWith('/contacts/new');
 });
@@ -84,3 +91,20 @@ const testContacts = [
     { name: 'Two', id: '2' },
     { name: 'Three', id: '3' },
 ];
+
+test('nameSorter', () => {
+    const array = [
+        { name: 'pqr' },
+        { name: 'def' },
+        { name: 'zyx' },
+        { name: 'abc' },
+    ];
+    expect(array.toString()).toBe(
+        [
+            { name: 'abc' },
+            { name: 'def' },
+            { name: 'pqr' },
+            { name: 'zyx' },
+        ].toString()
+    );
+});

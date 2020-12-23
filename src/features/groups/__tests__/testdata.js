@@ -1,5 +1,5 @@
 import { addContact } from '../../contacts/contactsSlice';
-import { addGroup } from '../groupsSlice';
+import { addGroup, clearGroups } from '../groupsSlice';
 
 export const insertContactData = store => {
     for (const contact of testContacts) {
@@ -9,6 +9,7 @@ export const insertContactData = store => {
 
 export const insertGroupData = store => {
     insertContactData(store);
+    store.dispatch({ type: clearGroups.toString() });
     for (const group of testGroups) {
         store.dispatch({ type: addGroup.toString(), payload: group });
     }

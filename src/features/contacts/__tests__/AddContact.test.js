@@ -15,11 +15,11 @@ test('render contact form and submit', () => {
     const submitBtn = screen.getByTestId('contact-save');
     const name = screen.getByRole('textbox', { testId: 'contact-name' });
     const form = screen.getByTestId('contact-form');
-    expect(submitBtn.disabled).toBe(true);
+    expect(submitBtn['disabled']).toBe(true);
     act(() => {
         userEvent.type(name, 'Test User');
     });
-    expect(submitBtn.disabled).toBe(false);
+    expect(submitBtn['disabled']).toBe(false);
 
     act(() => {
         fireEvent.submit(form);

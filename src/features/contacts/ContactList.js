@@ -27,7 +27,16 @@ const ContactList = ({
                     button
                     className="contact-item"
                 >
-                    {showSelection ? (
+                    <ListItemText primary={contact.name} />
+                    {!showSelection ? (
+                        <ListItemSecondaryAction>
+                            <ContactMenu
+                                onDetails={onItemSelect}
+                                onDelete={onDelete}
+                                contact={contact}
+                            />
+                        </ListItemSecondaryAction>
+                    ) : (
                         <ListItemIcon>
                             <Checkbox
                                 edge="start"
@@ -39,17 +48,7 @@ const ContactList = ({
                                 data-testid="contact-item-checkbox"
                             />
                         </ListItemIcon>
-                    ) : null}
-                    <ListItemText primary={contact.name} />
-                    {!showSelection ? (
-                        <ListItemSecondaryAction>
-                            <ContactMenu
-                                onDetails={onItemSelect}
-                                onDelete={onDelete}
-                                contact={contact}
-                            />
-                        </ListItemSecondaryAction>
-                    ) : null}
+                    )}
                 </ListItem>
             ))}
         </List>

@@ -2,9 +2,11 @@ import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import Contacts from '../Contacts';
+import App from '../../../App';
 import appRenderer, { store } from '../../../appRenderer';
 import { insertContactData } from './testdata';
 import { act } from 'react-dom/test-utils';
+import { push } from 'connected-react-router';
 
 test('render contacts and check details navigation', () => {
     insertContactData(store);
@@ -30,4 +32,15 @@ test('render contacts and check details navigation', () => {
     act(() => {
         userEvent.click(screen.getAllByTestId('contact-menu-details')[1]);
     });
+});
+
+test('invalid contact id redirects to home page', () => {
+    insertContactData(store);
+    render(appRenderer(<App />));
+
+    act(() => {
+        store.dispatch(push('/contacts/x'));
+    });
+
+    expect(screen.queryByTestId('group-list')).toBeDefined();
 });

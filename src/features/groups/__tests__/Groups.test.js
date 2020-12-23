@@ -4,7 +4,8 @@ import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { act } from 'react-dom/test-utils';
 import appRenderer from '../../../appRenderer';
-const { Groups } = testables;
+
+const { Groups, archivedAndNameSorter } = testables;
 
 test('render groups and select item', () => {
     const setFilter = jest.fn();
@@ -55,3 +56,22 @@ const testGroups = [
         creationDate: new Date().valueOf(),
     },
 ];
+
+test('archivedAndNameSorter', () => {
+    const xs = [
+        { name: 'abc', archived: true },
+        { name: 'zyx', archived: false },
+        { name: 'pqr', archived: false },
+        { name: 'aaa', archived: true },
+    ];
+
+    xs.sort(archivedAndNameSorter);
+    expect(xs.toString()).toBe(
+        [
+            { name: 'pqr', archived: false },
+            { name: 'zyx', archived: false },
+            { name: 'aaa', archived: true },
+            { name: 'abc', archived: true },
+        ].toString()
+    );
+});
