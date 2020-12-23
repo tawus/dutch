@@ -3,11 +3,12 @@ import PropTypes from 'prop-types';
 import AppBar from './AppBar';
 import { push } from 'connected-react-router';
 import { connect } from 'react-redux';
+import './Layout.css';
 
 const Layout = ({ push, children, app }) => (
     <div className="layout" data-testid="layout">
         <AppBar push={push} userName={app.userName} />
-        {children}
+        <div className="layout-body">{children}</div>
     </div>
 );
 

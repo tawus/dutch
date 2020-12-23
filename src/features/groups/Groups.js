@@ -1,12 +1,12 @@
 import React from 'react';
-import Layout from '../../components/Layout';
 import { push } from 'connected-react-router';
 import { connect } from 'react-redux';
+import HomeLayout from '../../components/HomeLayout';
 
 const Groups = ({ push }) => (
-    <Layout push={push}>
+    <HomeLayout tab="groups" push={push}>
         <span />
-    </Layout>
+    </HomeLayout>
 );
 
 export default connect(
