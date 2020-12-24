@@ -6,7 +6,7 @@ A React Redux Based solution for the [assignment](https://github.com/vacuumlabs-
 ## Mission
 To create a web application to help users to keep track of the payments for a **shared meal**. 
 
-The application should enable a user to keep track of the payments that people owe him/her when the user pays for a **shared meal**. We are using the phrase **shared meal** for a meal where the one of the attendee pays the full bill and other attendees later pay their share to the payer. 
+The application should enable a user to keep track of the payments that people owe him/her after the user pays for a **shared meal**. We are using the phrase **shared meal** for a meal where a group of people share a meal and one of the attendees pays the full bill and other attendees later pay their share of the bill to the payer. 
 
 ## Deployment
 The application is deployed [here](https://laughing-dubinsky-6072c0.netlify.app)
