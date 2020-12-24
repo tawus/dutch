@@ -15,7 +15,7 @@ const MemberMenu = ({ contact, onDelete, onDetails, isPaid, onTogglePaid }) => {
 
     const withClose = callback => () => {
         setAnchorEl(null);
-        callback(contact);
+        callback && callback(contact);
     };
 
     return (

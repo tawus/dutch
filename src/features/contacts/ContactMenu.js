@@ -14,7 +14,7 @@ const ContactMenu = ({ contact, onDelete, onDetails }) => {
 
     const withClose = callback => () => {
         setAnchorEl(null);
-        callback(contact);
+        callback && callback(contact);
     };
 
     return (

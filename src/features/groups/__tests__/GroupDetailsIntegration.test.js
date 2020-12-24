@@ -8,7 +8,7 @@ import App from '../../../App';
 import { act } from 'react-dom/test-utils';
 import '@testing-library/jest-dom';
 
-test('check deletion', () => {
+test('check header and deletion', () => {
     insertGroupData(store);
     render(appRenderer(<App />));
 
@@ -19,13 +19,13 @@ test('check deletion', () => {
     expect(screen.getByTestId('group-list').children.length).toBe(2);
 
     act(() => {
-        userEvent.click(screen.getAllByTestId('group-item')[0]);
+        store.dispatch(push('/groups/1'));
     });
 
-    expect(screen.getByTestId('amount')).toContainHTML('100');
-    expect(screen.getByTestId('unpaid')).toContainHTML('100');
+    expect(screen.getByTestId('amount')).toContainHTML('$100');
+    expect(screen.getByTestId('unpaid')).toContainHTML('$100');
     expect(screen.getByTestId('member-count')).toContainHTML('2');
-    expect(screen.getByTestId('amount-per-person')).toContainHTML('50.00');
+    expect(screen.getByTestId('amount-per-person')).toContainHTML('$50');
 
     act(() => {
         userEvent.click(screen.getAllByTestId('contact-menu-delete')[0]);

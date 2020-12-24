@@ -11,6 +11,7 @@ import ReceiptIcon from '@material-ui/icons/Receipt';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
+import { currencyFormatter } from '../../utils/Locale';
 
 const useStyles = makeStyles({
     root: {
@@ -21,7 +22,9 @@ const useStyles = makeStyles({
 const ContactDetailsHeader = ({ contact, groups }) => {
     const classes = useStyles();
     const activeGroups = groups.filter(g => !g.archived);
-    const amount = activeGroups.reduce((sum, g) => sum + g.amountPerPerson, 0);
+    const amount = activeGroups
+        .filter(g => !g.members[contact.id].paid)
+        .reduce((sum, g) => sum + g.amountPerPerson, 0);
     return (
         <Card className={classes.root}>
             <CardContent className={classes.title}>
@@ -57,19 +60,19 @@ const menu = ({ groups, activeGroupCount, amount }) => [
         text: 'Groups',
         value: groups.length,
         testid: 'group-count',
-        icon: <GroupIcon />,
+        icon: <GroupIcon color="primary" />,
     },
     {
         text: 'Active Groups',
         value: activeGroupCount,
         testid: 'current-count',
-        icon: <GroupIcon />,
+        icon: <GroupIcon color="primary" />,
     },
     {
         text: 'Pending Amount',
-        value: amount,
+        value: currencyFormatter.format(amount),
         testid: 'amount',
-        icon: <ReceiptIcon />,
+        icon: <ReceiptIcon color="secondary" />,
     },
 ];
 

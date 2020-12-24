@@ -1,13 +1,22 @@
 import React from 'react';
 import Routes from './Routes';
 import './App.css';
+import { connect } from 'react-redux';
+import AddContact from './features/contacts/AddContact';
 
-function App() {
+function App({ isNewInstallation }) {
     return (
         <div className="App">
-            <Routes />
+            {isNewInstallation ? <AddContact /> : <Routes />}
         </div>
     );
 }
 
-export default App;
+const mapStateToProps = state => ({
+    isNewInstallation: !Object.keys(state.contacts).length,
+});
+
+export default connect(
+    mapStateToProps,
+    null
+)(App);

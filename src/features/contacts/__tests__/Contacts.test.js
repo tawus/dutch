@@ -9,7 +9,7 @@ const { Contacts, nameSorter } = testables;
 
 test('render contacts and see if contacts are rendered', () => {
     const setFilter = jest.fn();
-    const removeContact = jest.fn();
+    const push = jest.fn();
 
     act(() => {
         render(
@@ -17,9 +17,8 @@ test('render contacts and see if contacts are rendered', () => {
                 <Contacts
                     contacts={testContacts}
                     setFilter={setFilter}
-                    removeContact={removeContact}
                     filter={{ text: '' }}
-                    push={jest.fn()}
+                    push={push}
                 />
             )
         );
@@ -28,15 +27,13 @@ test('render contacts and see if contacts are rendered', () => {
     const list = screen.getByTestId('contact-list').children;
     expect(list.length).toBe(3);
     act(() => {
-        userEvent.click(screen.getAllByTestId('contact-menu-trigger')[0]);
-        userEvent.click(screen.getAllByTestId('contact-menu-delete')[0]);
+        userEvent.click(screen.getAllByTestId('contact-item')[0]);
     });
-    expect(removeContact).toHaveBeenCalledWith('1');
+    expect(push).toHaveBeenCalledWith('/contacts/1');
 });
 
 test('render contacts and check contact details traversal', () => {
     const setFilter = jest.fn();
-    const removeContact = jest.fn();
     const push = jest.fn();
 
     render(
@@ -44,7 +41,6 @@ test('render contacts and check contact details traversal', () => {
             <Contacts
                 contacts={testContacts}
                 setFilter={setFilter}
-                removeContact={removeContact}
                 filter={{ text: '' }}
                 push={push}
             />
@@ -54,15 +50,13 @@ test('render contacts and check contact details traversal', () => {
     const list = screen.getByTestId('contact-list');
     expect(list.children.length).toBe(3);
     act(() => {
-        userEvent.click(screen.getAllByTestId('contact-menu-trigger')[0]);
-        userEvent.click(screen.getAllByTestId('contact-menu-details')[0]);
+        userEvent.click(screen.getAllByTestId('contact-item')[0]);
     });
     expect(push).toHaveBeenCalledWith('/contacts/1');
 });
 
 test('navigation to add contact works', () => {
     const setFilter = jest.fn();
-    const removeContact = jest.fn();
     const push = jest.fn();
 
     render(
@@ -70,7 +64,6 @@ test('navigation to add contact works', () => {
             <Contacts
                 contacts={testContacts}
                 setFilter={setFilter}
-                removeContact={removeContact}
                 filter={{ text: '' }}
                 push={push}
             />
@@ -99,6 +92,7 @@ test('nameSorter', () => {
         { name: 'zyx' },
         { name: 'abc' },
     ];
+    array.sort(nameSorter);
     expect(array.toString()).toBe(
         [
             { name: 'abc' },

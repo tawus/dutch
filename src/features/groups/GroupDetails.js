@@ -4,10 +4,11 @@ import { push } from 'connected-react-router';
 import { connect } from 'react-redux';
 import MemberList from '../contacts/MemberList';
 import GroupDetailsHeader from '../groups/GroupDetailsHeader';
-import { togglePaid, removeMember } from '../groups/groupsSlice';
+import { togglePaid, removeMember, removeGroup } from '../groups/groupsSlice';
 import Layout from '../../components/Layout';
 import Typography from '@material-ui/core/Typography';
 import { Redirect } from 'react-router-dom';
+import AlertButton from '../../components/AlertButton';
 
 const contactsSelector = state => state.contacts;
 const groupsSelector = state => state.groups;
@@ -25,7 +26,14 @@ const groupSelection = props =>
         }
     );
 
-const GroupDetails = ({ group, members, push, togglePaid, removeMember }) => {
+const GroupDetails = ({
+    group,
+    members,
+    push,
+    togglePaid,
+    removeGroup,
+    removeMember,
+}) => {
     const itemPaid = useCallback(
         contact => {
             togglePaid({
@@ -48,6 +56,11 @@ const GroupDetails = ({ group, members, push, togglePaid, removeMember }) => {
         [group, removeMember]
     );
 
+    const removeGroupAndRedirect = useCallback(() => {
+        removeGroup(group.id);
+        push('/groups');
+    }, [removeGroup, push, group]);
+
     if (!group || !group.id) {
         return <Redirect to="/" />;
     }
@@ -66,12 +79,23 @@ const GroupDetails = ({ group, members, push, togglePaid, removeMember }) => {
                     onItemPaid={itemPaid}
                     selection={selection}
                 />
+                <AlertButton
+                    buttonText="Delete Group"
+                    text="Are you sure you want to delete this group?"
+                    title="Delete Group"
+                    buttonProps={{
+                        color: 'secondary',
+                        variant: 'contained',
+                        fullWidth: true,
+                    }}
+                    onConfirm={removeGroupAndRedirect}
+                />
             </div>
         </Layout>
     );
 };
 
-const mapDispatchToProps = { push, togglePaid, removeMember };
+const mapDispatchToProps = { push, togglePaid, removeMember, removeGroup };
 const mapStateToProps = (state, props) => groupSelection(props)(state);
 
 export default connect(

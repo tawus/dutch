@@ -2,7 +2,6 @@ import React from 'react';
 import ContactList from './ContactList';
 import ContactsFilter from './ContactsFilter';
 import { setFilter } from './contactsFilterSlice';
-import { removeContact } from './contactsSlice';
 import { createSelector } from '@reduxjs/toolkit';
 import { connect } from 'react-redux';
 import { push } from 'connected-react-router';
@@ -32,7 +31,7 @@ export const selectFilteredContacts = createSelector(
     }
 );
 
-const Contacts = ({ setFilter, removeContact, contacts, filter, push }) => {
+const Contacts = ({ setFilter, contacts, filter, push }) => {
     return (
         <HomeLayout tab="contacts" push={push}>
             <div className="contacts">
@@ -56,8 +55,6 @@ const Contacts = ({ setFilter, removeContact, contacts, filter, push }) => {
                 </Grid>
                 <ContactList
                     contacts={contacts}
-                    showSelection={false}
-                    onDelete={contact => removeContact(contact.id)}
                     onItemSelect={contact => push(`/contacts/${contact.id}`)}
                 />
             </div>
@@ -65,7 +62,7 @@ const Contacts = ({ setFilter, removeContact, contacts, filter, push }) => {
     );
 };
 
-const mapDispatchToProps = { setFilter, removeContact, push };
+const mapDispatchToProps = { setFilter, push };
 const mapStateToProps = state => ({
     contacts: selectFilteredContacts(state),
     filter: state.contactsFilter,

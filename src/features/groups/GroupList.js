@@ -4,9 +4,13 @@ import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
+import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import GroupIcon from '@material-ui/icons/Group';
+import DoneIcon from '@material-ui/icons/Done';
+import GroupItemDescription from './GroupItemDescription';
+import Badge from '@material-ui/core/Badge';
 
-const GroupList = ({ groups, onItemSelect }) => {
+const GroupList = ({ groups, onItemSelect, secondaryAction }) => {
     return (
         <List
             className="group-list"
@@ -24,14 +28,25 @@ const GroupList = ({ groups, onItemSelect }) => {
                     }`}
                 >
                     <ListItemIcon>
-                        <GroupIcon />
+                        <Badge
+                            color="secondary"
+                            badgeContent={paidMembers(group)}
+                        >
+                            {group.archived ? (
+                                <DoneIcon />
+                            ) : (
+                                <GroupIcon color="primary" />
+                            )}
+                        </Badge>
                     </ListItemIcon>
                     <ListItemText
                         primary={group.name}
-                        secondary={`${
-                            Object.keys(group.members).length
-                        } Member(s)`}
-                    ></ListItemText>
+                        secondary={<GroupItemDescription group={group} />}
+                    />
+
+                    <ListItemSecondaryAction>
+                        {secondaryAction ? secondaryAction(group) : <span />}
+                    </ListItemSecondaryAction>
                 </ListItem>
             ))}
         </List>
@@ -43,4 +58,8 @@ export default GroupList;
 GroupList.propTypes = {
     groups: PropTypes.arrayOf(PropTypes.any).isRequired,
     onItemSelect: PropTypes.func.isRequired,
+    secondaryAction: PropTypes.func,
 };
+
+const paidMembers = group =>
+    Object.values(group.members).filter(m => m.paid).length;

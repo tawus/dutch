@@ -6,6 +6,7 @@ const ContactsFilter = ({ onFilterChange, filterText }) => {
     return (
         <TextField
             label="Search Contact"
+            placeholder="Search Contact"
             data-testid="contact-filter"
             value={filterText}
             fullWidth={true}

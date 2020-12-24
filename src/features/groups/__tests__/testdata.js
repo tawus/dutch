@@ -37,7 +37,7 @@ const testGroups = [
     {
         name: 'Group #1',
         members: [1, 2],
-        creationDate: new Date().valueOf(),
+        creationDate: new Date().valueOf() + 10,
         archived: false,
         billAmount: 100,
         amountPerPerson: 50,

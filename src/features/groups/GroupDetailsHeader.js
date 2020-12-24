@@ -12,10 +12,11 @@ import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 import Chip from '@material-ui/core/Chip';
-import ArchiveIcon from '@material-ui/icons/Archive';
+import ArchiveIcon from '@material-ui/icons/Done';
 import GroupIcon from '@material-ui/icons/Group';
 import PersonIcon from '@material-ui/icons/Person';
 import DateIcon from '@material-ui/icons/Event';
+import { dateFormatter, currencyFormatter } from '../../utils/Locale';
 
 const useStyles = makeStyles({
     root: {
@@ -44,7 +45,13 @@ const GroupDetailsHeader = ({ group }) => {
                 </Typography>
                 <Chip
                     data-testid="group-status"
-                    icon={group.archived ? <ArchiveIcon /> : <GroupIcon />}
+                    icon={
+                        group.archived ? (
+                            <ArchiveIcon />
+                        ) : (
+                            <GroupIcon color="primary" />
+                        )
+                    }
                     label={group.archived ? 'Archived' : 'Active'}
                 ></Chip>
                 <List>
@@ -80,27 +87,32 @@ GroupDetailsHeader.propTypes = {
 const menu = (group, unpaid) => [
     {
         text: 'Members',
-        icon: <PeopleIcon />,
+        icon: <PeopleIcon color="primary" />,
         testid: 'member-count',
         value: Object.keys(group.members).length,
     },
     {
         text: 'Bill Amount',
-        icon: <ReceiptIcon />,
+        icon: <ReceiptIcon color="primary" />,
         testid: 'amount',
-        value: group.billAmount,
+        value: currencyFormatter.format(group.billAmount),
     },
-    { text: 'Unpaid', icon: <ReceiptIcon />, testid: 'unpaid', value: unpaid },
+    {
+        text: 'Unpaid',
+        icon: <ReceiptIcon color="secondary" />,
+        testid: 'unpaid',
+        value: currencyFormatter.format(unpaid),
+    },
     {
         text: 'Amount Per Person',
-        icon: <PersonIcon />,
+        icon: <PersonIcon color="primary" />,
         testid: 'amount-per-person',
-        value: group.amountPerPerson,
+        value: currencyFormatter.format(group.amountPerPerson),
     },
     {
         text: 'Creation Date',
-        icon: <DateIcon />,
+        icon: <DateIcon color="primary" />,
         testid: 'creation-date',
-        value: new Date(group.creationDate).toLocaleDateString(),
+        value: dateFormatter.formatDate(group.creationDate),
     },
 ];

@@ -10,15 +10,26 @@ const contactsSlice = createSlice({
     reducers: {
         addContact: (state, action) => {
             const contactId = String(nextContactId());
-            state[contactId] = { ...action.payload, id: contactId };
+            state[contactId] = {
+                ...action.payload,
+                id: contactId,
+            };
         },
 
         removeContact: (state, action) => {
             delete state[action.payload];
         },
+
+        clearContacts: state => {
+            state = undefined;
+        },
     },
 });
 
-export const { addContact, removeContact, setPaid } = contactsSlice.actions;
+export const {
+    clearContacts,
+    addContact,
+    removeContact,
+} = contactsSlice.actions;
 
 export default contactsSlice.reducer;

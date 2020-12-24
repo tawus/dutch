@@ -26,9 +26,8 @@ test('render contact form and submit', () => {
     });
 
     act(() => {
-        userEvent.click(screen.getAllByTestId('contact-menu-trigger')[0]);
-        userEvent.click(screen.getAllByTestId('contact-menu-delete')[0]);
+        userEvent.click(screen.getAllByTestId('contact-item')[0]);
     });
 
-    expect(screen.getByTestId('contact-list').children.length).toBe(0);
+    expect(screen.getByTestId('group-list').children.length).toBe(0);
 });

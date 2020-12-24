@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import GroupList from '../groups/GroupList';
 import ContactDetailsHeader from './ContactDetailsHeader';
 import { createSelector } from '@reduxjs/toolkit';
@@ -6,6 +6,10 @@ import { connect } from 'react-redux';
 import { push } from 'connected-react-router';
 import Layout from '../../components/Layout';
 import { Redirect } from 'react-router-dom';
+import PaidIcon from '@material-ui/icons/CheckBox';
+import UnpaidIcon from '@material-ui/icons/CheckBoxOutlineBlank';
+import { removeContact } from './contactsSlice';
+import AlertButton from '../../components/AlertButton';
 
 const contactSelector = state => state.contacts;
 const groupsSelector = state => state.groups;
@@ -22,6 +26,7 @@ const contactSelection = props =>
             const contactGroups = Object.values(groups).filter(
                 g => g.members[contact.id]
             );
+
             return {
                 contact,
                 groups: contactGroups,
@@ -29,8 +34,17 @@ const contactSelection = props =>
         }
     );
 
-const ContactDetails = ({ groups, contact, push }) => {
+const ContactDetails = ({ groups, contact, push, removeContact }) => {
     const toGroupDetails = group => push(`/groups/${group.id}`);
+
+    const isPaid = group =>
+        !!Object.keys(group.members).find(id => id === contact.id);
+
+    const removeContactAndRedirect = useCallback(() => {
+        removeContact(contact.id);
+        push('/contacts');
+    }, [removeContact, push, contact]);
+
     if (!contact.id) {
         return <Redirect to="/" />;
     }
@@ -39,13 +53,35 @@ const ContactDetails = ({ groups, contact, push }) => {
         <Layout>
             <div className="contact-details">
                 <ContactDetailsHeader contact={contact} groups={groups} />
-                <GroupList groups={groups} onItemSelect={toGroupDetails} />
+                <GroupList
+                    groups={groups}
+                    onItemSelect={toGroupDetails}
+                    secondaryAction={group =>
+                        isPaid(group) ? (
+                            <PaidIcon color="primary" />
+                        ) : (
+                            <UnpaidIcon />
+                        )
+                    }
+                />
+                <AlertButton
+                    buttonText="Delete Contact"
+                    text="Are you sure you want to delete this contact ? "
+                    title="Delete Contact"
+                    buttonProps={{
+                        color: 'secondary',
+                        variant: 'contained',
+                        fullWidth: true,
+                        disabled: !!groups.length,
+                    }}
+                    onConfirm={removeContactAndRedirect}
+                />
             </div>
         </Layout>
     );
 };
 
-const mapDispatchToProps = { push };
+const mapDispatchToProps = { push, removeContact };
 const mapStateToProps = (state, props) => contactSelection(props)(state);
 
 export default connect(

@@ -26,11 +26,7 @@ test('render contacts and check details navigation', () => {
     expect(screen.getByTestId('contact-list').children.length).toBe(3);
 
     act(() => {
-        userEvent.click(screen.getAllByTestId('contact-menu-trigger')[1]);
-    });
-
-    act(() => {
-        userEvent.click(screen.getAllByTestId('contact-menu-details')[1]);
+        userEvent.click(screen.getAllByTestId('contact-item')[0]);
     });
 });
 

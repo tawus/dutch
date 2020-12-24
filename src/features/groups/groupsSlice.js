@@ -12,10 +12,12 @@ const groupsSlice = createSlice({
             const { billAmount, members } = action.payload;
             if (members.length > 0) {
                 const amount = Number.parseFloat(billAmount);
-                const amountPerPerson = (amount / members.length).toFixed(2);
+                const amountPerPerson = Number.parseFloat(
+                    (amount / members.length).toFixed(2)
+                );
                 const id = String(nextGroupId());
                 const groupMembers = members.reduce(
-                    (ms, m) => ({ ...ms, [m]: { paid: false } }),
+                    (ms, id) => ({ ...ms, [id]: { paid: id === '1', id } }),
                     {}
                 );
                 state[id] = {
@@ -41,6 +43,11 @@ const groupsSlice = createSlice({
             const { groupId, memberId } = action.payload;
             const group = state[groupId];
             delete group.members[memberId];
+            group.amountPerPerson = Number.parseFloat(
+                (group.billAmount / Object.keys(group.members).length).toFixed(
+                    2
+                )
+            );
             updateArchiveStatus(group);
         },
 
