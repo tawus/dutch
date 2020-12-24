@@ -1,6 +1,7 @@
 # Dutch
 >  **dutch** with each person paying his or her own way
-A React Redux Based solution for the [assignment](url). 
+
+A React Redux Based solution for the [assignment](https://github.com/vacuumlabs-interviews/3rd-round-Taha-Siddiqi/docs/Assignment.pdf). 
 
 ## Mission
 To create a web application to help users to keep track of the payments for a **shared meal**. 
@@ -8,7 +9,7 @@ To create a web application to help users to keep track of the payments for a **
 The application should enable a user to keep track of the payments that people owe him/her when the user pays for a **shared meal**. We are using the phrase **shared meal** for a meal where the one of the attendee pays the full bill and other attendees later pay their share to the payer. 
 
 ## Deployment
-The application is deployed [here](url)
+The application is deployed [here](https://laughing-dubinsky-6072c0.netlify.app)
 
 ## Usage
 The application redirects a new user to the Welcome Page where the user entries his contact details (just name). Once the users contact is created, the user is taken to the application's home page. The user can perform the following operations
