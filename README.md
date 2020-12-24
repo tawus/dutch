@@ -1,68 +1,80 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app), using the [Redux](https://redux.js.org/) and [Redux Toolkit](https://redux-toolkit.js.org/) template.
+# Dutch
+>  **dutch** with each person paying his or her own way
+A React Redux Based solution for the [assignment](url). 
 
-## Available Scripts
+## Mission
+To create a web application to help users to keep track of the payments for a **shared meal**. 
 
-In the project directory, you can run:
+The application should enable a user to keep track of the payments that people owe him/her when the user pays for a **shared meal**. We are using the phrase **shared meal** for a meal where the one of the attendee pays the full bill and other attendees later pay their share to the payer. 
 
-### `npm start`
+## Deployment
+The application is deployed [here](url)
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## Usage
+The application redirects a new user to the Welcome Page where the user entries his contact details (just name). Once the users contact is created, the user is taken to the application's home page. The user can perform the following operations
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+- Add a new contact.
+- Delete an existing contact. *(only if the contact does not belong to any group)*
+- Add a new group & add contacts as members to a group.
+- Delete an existing group.
+- Mark a member as paid. If all members have paid, the status of the group changes to archived.
+- Unmark as member as paid. 
+- Reset Storage.
 
-### `npm test`
+## Implementation
+The application is written in JavaScript and uses Redux/React tools. The application uses Testing Library  & Jest for writing tests.
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### Libraries
+The application is written in JavaScript using the following libraries :-
 
-### `npm run build`
+- [Redux Toolkit](https://redux-toolkit.js.org) :- For application state management.
+- [React](https://reactjs.org) :- A reactive UI library.
+- [React Router](https://reactrouter.com) :- A client routing library.
+- [Testing Library](https://testing-library.com) :- UI testing library.
+- [Connected React Router](https://github.com/supasate/connected-react-router) :- A react router integration library for redux.
+- [Material-UI](https://material-ui.com) :- A Material Design library for React.
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### Directory Layout
+The application source is in the `src` directory and the tests are written in the embedded `__tests__` directories. The root level directories 
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+- `src/features` contains the application features namely `contacts` & `groups`.
+- `src/components` contains components mainly concerned with the Layout.
+- `src/app` contains the application store and root reducers.
+- `src/utils` contains utilities.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### Application Documentation
+The application documentation is stored in the docs folder.
 
-### `npm run eject`
+### Application setup
+Clone this repository and run `npm install`.
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+#### Development
+To run the application in development mode, use the command.
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+	`npm run start`
 
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+#### Testing
+To test the application, use the command
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+	`npm test -- --coverage`
 
-## Learn More
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+There is an annoying warning `Warning: findDOMNode is deprecated in StrictMode. findDOMNode was passed an instance of Transition which is inside StrictMode.` which seems to be related to Material UI. We can disable to `Strict Mode` but that is too beneficial to be sacrificed for this warning.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
 
-### Code Splitting
+#### Build
+To build the application, use the command. 
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
+	`npm run build`
 
-### Analyzing the Bundle Size
+### A word about the data schema
+The application uses two main entities `contacts` and `groups` and both are implemented as `objects`. The preferred way should have been to use `Map` but because of the serialization and immutability problem. This problem can be solved by using libraries like `immutable.js`. The `membership` is maintained by the groups as a nested object. 
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
 
-### Making a Progressive Web App
+# What other things should have been part of this application
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
+- Internationalization.
+- Accessibility Check. Although `Material UI` takes care of most of the `aria` specifications but I didn't get enough time to check that.
+- PWA :- This application is a good candidate for PWA.
+- Settings :- User Settings for setting configuration like user's name, preferred currency etc.
 
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
