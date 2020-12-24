@@ -1,5 +1,5 @@
 import React from 'react';
-import AppBar from '@material-ui/core/AppBar';
+import MuiAppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Button from '@material-ui/core/Button';
 import AppTitle from './AppTitle';
@@ -19,32 +19,33 @@ const useStyles = makeStyles(theme => ({
     },
 }));
 
-const ApplicationBar = ({ push, userName }) => {
+const AppBar = ({ onSettings, onHome, userName }) => {
     const classes = useStyles();
 
     return (
         <div className={classes.root}>
-            <AppBar position="static">
+            <MuiAppBar position="static">
                 <Toolbar>
-                    <HomeMenu push={push} />
-                    <AppTitle className={classes.title} />
+                    <HomeMenu />
+                    <AppTitle className={classes.title} onHome={onHome} />
                     <Button
                         color="inherit"
-                        onClick={() => push('/settings')}
+                        onClick={onSettings}
                         data-testid="settings-btn"
                         className={classes.menuButton}
                     >
                         {userName}
                     </Button>
                 </Toolbar>
-            </AppBar>
+            </MuiAppBar>
         </div>
     );
 };
 
-export default ApplicationBar;
+export default AppBar;
 
-ApplicationBar.propTypes = {
-    push: PropTypes.func.isRequired,
+AppBar.propTypes = {
+    onHome: PropTypes.func.isRequired,
+    onSettings: PropTypes.func.isRequired,
     userName: PropTypes.string.isRequired,
 };
