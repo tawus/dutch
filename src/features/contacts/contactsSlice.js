@@ -1,23 +1,19 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-let contactId = 1;
-
-const nextContactId = () => contactId++;
-
 const contactsSlice = createSlice({
     name: 'contacts',
-    initialState: {},
+    initialState: { data: {}, counter: 1 },
     reducers: {
         addContact: (state, action) => {
-            const contactId = String(nextContactId());
-            state[contactId] = {
+            const contactId = String(state.counter++);
+            state.data[contactId] = {
                 ...action.payload,
                 id: contactId,
             };
         },
 
         removeContact: (state, action) => {
-            delete state[action.payload];
+            delete state.data[action.payload];
         },
 
         clearContacts: state => {

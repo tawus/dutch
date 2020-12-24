@@ -10,7 +10,7 @@ import { createSelector } from '@reduxjs/toolkit';
 import { setFilter } from './groupsFilterSlice';
 import PendingAmount from './PendingAmount';
 
-const selectGroups = state => state.groups;
+const selectGroups = state => state.groups.data;
 const selectFilter = state => state.groupsFilter;
 
 const groupSorter = (x, y) => {

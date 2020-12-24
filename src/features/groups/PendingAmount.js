@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import Chip from '@material-ui/core/Chip';
 import Avatar from '@material-ui/core/Avatar';
 import MoneyIcon from '@material-ui/icons/AttachMoney';
+import { currencyFormatter } from '../../utils/Locale';
 
 const PendingAmount = ({ groups }) => {
     const { amount, members } = calculatePendings(groups);
@@ -10,7 +11,9 @@ const PendingAmount = ({ groups }) => {
         <Chip
             label={
                 amount > 0
-                    ? `${amount} from ${members} users`
+                    ? `${currencyFormatter.format(
+                          amount
+                      )} from ${members} users`
                     : 'All Payments Made'
             }
             color={amount > 0 ? 'primary' : 'default'}
@@ -35,8 +38,8 @@ export const calculatePendings = groups => {
         .reduce(
             ({ sum, members }, g) => {
                 sum +=
-                    g.billAmount -
-                    Object.keys(g.members).length * g.amountPerPerson;
+                    Object.values(g.members).filter(m => !m.paid).length *
+                    g.amountPerPerson;
                 Object.keys(g.members).forEach(m => members.add(m));
                 return { sum, members };
             },

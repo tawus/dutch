@@ -1,12 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-let groupId = 1;
-
-const nextGroupId = () => groupId++;
-
 const groupsSlice = createSlice({
     name: 'groups',
-    initialState: {},
+    initialState: { counter: 1, data: {} },
     reducers: {
         addGroup: (state, action) => {
             const { billAmount, members } = action.payload;
@@ -15,12 +11,12 @@ const groupsSlice = createSlice({
                 const amountPerPerson = Number.parseFloat(
                     (amount / members.length).toFixed(2)
                 );
-                const id = String(nextGroupId());
+                const id = String(state.counter++);
                 const groupMembers = members.reduce(
                     (ms, id) => ({ ...ms, [id]: { paid: id === '1', id } }),
                     {}
                 );
-                state[id] = {
+                state.data[id] = {
                     ...action.payload,
                     billAmount: amount,
                     id,
@@ -34,14 +30,14 @@ const groupsSlice = createSlice({
 
         togglePaid: (state, action) => {
             const { groupId, memberId } = action.payload;
-            const group = state[groupId];
+            const group = state.data[groupId];
             group.members[memberId].paid = !group.members[memberId].paid;
             updateArchiveStatus(group);
         },
 
         removeMember: (state, action) => {
             const { groupId, memberId } = action.payload;
-            const group = state[groupId];
+            const group = state.data[groupId];
             delete group.members[memberId];
             group.amountPerPerson = Number.parseFloat(
                 (group.billAmount / Object.keys(group.members).length).toFixed(
@@ -52,7 +48,7 @@ const groupsSlice = createSlice({
         },
 
         removeGroup: (state, action) => {
-            delete state[action.payload];
+            delete state.data[action.payload];
         },
 
         clearGroups: state => {

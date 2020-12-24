@@ -10,8 +10,8 @@ import Typography from '@material-ui/core/Typography';
 import { Redirect } from 'react-router-dom';
 import AlertButton from '../../components/AlertButton';
 
-const contactsSelector = state => state.contacts;
-const groupsSelector = state => state.groups;
+const contactsSelector = state => state.contacts.data;
+const groupsSelector = state => state.groups.data;
 
 const groupSelection = props =>
     createSelector(

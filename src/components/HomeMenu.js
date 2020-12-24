@@ -6,6 +6,7 @@ import ContactIcon from '@material-ui/icons/Person';
 import ContactAddIcon from '@material-ui/icons/PersonAdd';
 import GroupIcon from '@material-ui/icons/Group';
 import GroupAddIcon from '@material-ui/icons/GroupAdd';
+import HomeIcon from '@material-ui/icons/Home';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import { resetStorage } from '../app/localStorage';
@@ -50,6 +51,13 @@ const HomeMenu = ({ push, className, clearGroups, clearContacts }) => {
                 open={open}
                 onClose={() => setAnchorEl(null)}
             >
+                <MenuItem onClick={() => push('/groups')}>
+                    <ListItemIcon>
+                        <HomeIcon />
+                    </ListItemIcon>
+                    <ListItemText primary="Home" />
+                </MenuItem>
+
                 <MenuItem onClick={() => push('/contacts/new')}>
                     <ListItemIcon>
                         <ContactIcon />

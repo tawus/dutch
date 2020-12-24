@@ -13,7 +13,7 @@ function App({ isNewInstallation }) {
 }
 
 const mapStateToProps = state => ({
-    isNewInstallation: !Object.keys(state.contacts).length,
+    isNewInstallation: !Object.keys(state.contacts.data).length,
 });
 
 export default connect(

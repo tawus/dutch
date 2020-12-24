@@ -9,7 +9,7 @@ import HomeLayout from '../../components/HomeLayout';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 
-const selectContacts = state => state.contacts;
+const selectContacts = state => state.contacts.data;
 const selectFilter = state => state.contactsFilter;
 
 const nameSorter = (x, y) => {

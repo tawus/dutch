@@ -11,8 +11,8 @@ import UnpaidIcon from '@material-ui/icons/CheckBoxOutlineBlank';
 import { removeContact } from './contactsSlice';
 import AlertButton from '../../components/AlertButton';
 
-const contactSelector = state => state.contacts;
-const groupsSelector = state => state.groups;
+const contactSelector = state => state.contacts.data;
+const groupsSelector = state => state.groups.data;
 
 const contactSelection = props =>
     createSelector(
@@ -37,8 +37,12 @@ const contactSelection = props =>
 const ContactDetails = ({ groups, contact, push, removeContact }) => {
     const toGroupDetails = group => push(`/groups/${group.id}`);
 
-    const isPaid = group =>
-        !!Object.keys(group.members).find(id => id === contact.id);
+    const isPaid = group => {
+        const member = Object.values(group.members).find(
+            m => m.id === contact.id
+        );
+        return member && member.paid;
+    };
 
     const removeContactAndRedirect = useCallback(() => {
         removeContact(contact.id);
@@ -57,11 +61,7 @@ const ContactDetails = ({ groups, contact, push, removeContact }) => {
                     groups={groups}
                     onItemSelect={toGroupDetails}
                     secondaryAction={group =>
-                        isPaid(group) ? (
-                            <PaidIcon color="primary" />
-                        ) : (
-                            <UnpaidIcon />
-                        )
+                        isPaid(group) ? <PaidIcon /> : <UnpaidIcon />
                     }
                 />
                 <AlertButton

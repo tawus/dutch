@@ -31,7 +31,7 @@ const AddGroup = ({ addGroup, contacts, push }) => {
         [setGroup]
     );
 
-    const me = [contacts.find(c => c.id === '1')];
+    const me = contacts.find(c => c.id === '1');
 
     return (
         <Layout>
@@ -64,7 +64,7 @@ const AddGroup = ({ addGroup, contacts, push }) => {
                         multiple
                         id="tags-standard"
                         options={contacts}
-                        defaultValue={me}
+                        defaultValue={me ? [me] : []}
                         getOptionSelected={(option, value) =>
                             option.id === value.id
                         }
@@ -122,7 +122,7 @@ const isValid = group =>
     group.members.length > 0;
 
 const mapStateToProps = state => ({
-    contacts: Object.values(state.contacts),
+    contacts: Object.values(state.contacts.data),
 });
 
 const mapDispatchToProps = { setFilter, addGroup, push };
