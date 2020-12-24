@@ -31,7 +31,11 @@ export default function AlertButton({
 
     return (
         <div>
-            <Button {...buttonProps} onClick={handleClickOpen}>
+            <Button
+                {...buttonProps}
+                data-testid="alert-btn"
+                onClick={handleClickOpen}
+            >
                 {buttonText}
             </Button>
             <Dialog
@@ -47,10 +51,19 @@ export default function AlertButton({
                     </DialogContentText>
                 </DialogContent>
                 <DialogActions>
-                    <Button onClick={handleClose} color="primary">
+                    <Button
+                        onClick={handleClose}
+                        color="primary"
+                        data-testid="cancel-btn"
+                    >
                         Cancel
                     </Button>
-                    <Button onClick={confirm} color="primary" autoFocus>
+                    <Button
+                        onClick={confirm}
+                        color="primary"
+                        autoFocus
+                        data-testid="ok-btn"
+                    >
                         OK
                     </Button>
                 </DialogActions>
