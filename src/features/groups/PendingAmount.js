@@ -37,10 +37,11 @@ export const calculatePendings = groups => {
         .filter(g => !g.archived)
         .reduce(
             ({ sum, members }, g) => {
-                sum +=
-                    Object.values(g.members).filter(m => !m.paid).length *
-                    g.amountPerPerson;
-                Object.keys(g.members).forEach(m => members.add(m));
+                const unpaidMembers = Object.values(g.members).filter(
+                    m => !m.paid
+                );
+                sum += unpaidMembers.length * g.amountPerPerson;
+                unpaidMembers.forEach(m => members.add(m.id));
                 return { sum, members };
             },
             { sum: 0, members: new Set() }

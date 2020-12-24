@@ -25,6 +25,7 @@ const groupsSlice = createSlice({
                     amountPerPerson,
                     members: groupMembers,
                 };
+                updateArchiveStatus(state.data[id]);
             }
         },
 
