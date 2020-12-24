@@ -5,6 +5,7 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  font-size: 0.75em;
 }
 
 code {
@@ -14,4 +15,27 @@ code {
 
 .button-panel {
     margin-top:10px;
+}
+
+.button-panel button {
+    margin-right: 10px;
+}
+
+.line-field {
+    margin:15px 0;
+}
+
+.group-contacts-field {
+    padding:20px;
+}
+
+.scroll-list {
+    max-height: 400px;
+    overflow: auto;
+}
+
+.welcome {
+    padding:20px;
+    margin: 20px 0;
+    font-variant: small-caps;
 }
