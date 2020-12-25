@@ -10,6 +10,7 @@ import PaidIcon from '@material-ui/icons/CheckBox';
 import UnpaidIcon from '@material-ui/icons/CheckBoxOutlineBlank';
 import { removeContact } from './contactsSlice';
 import AlertButton from '../../components/AlertButton';
+import ContactBreadcrumbs from './ContactBreadcrumbs';
 
 const contactSelector = state => state.contacts.data;
 const groupsSelector = state => state.groups.data;
@@ -56,6 +57,7 @@ const ContactDetails = ({ groups, contact, push, removeContact }) => {
     return (
         <Layout>
             <div className="contact-details">
+                <ContactBreadcrumbs name={contact.name} />
                 <ContactDetailsHeader contact={contact} groups={groups} />
                 <GroupList
                     groups={groups}

@@ -7,9 +7,16 @@ import AddGroup from './features/groups/AddGroup';
 import GroupDetails from './features/groups/GroupDetails';
 import ContactDetails from './features/contacts/ContactDetails';
 import Page from './components/Page';
+import Settings from './features/settings/Settings';
 
 const Routes = () => (
     <Switch>
+        <Page
+            path="/settings"
+            component={Settings}
+            exact
+            title={title('User Settings')}
+        />
         <Page
             path="/contacts/new"
             component={AddContact}

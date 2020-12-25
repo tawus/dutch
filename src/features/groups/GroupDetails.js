@@ -9,6 +9,7 @@ import Layout from '../../components/Layout';
 import Typography from '@material-ui/core/Typography';
 import { Redirect } from 'react-router-dom';
 import AlertButton from '../../components/AlertButton';
+import GroupBreadcrumbs from './GroupBreadcrumbs';
 
 const contactsSelector = state => state.contacts.data;
 const groupsSelector = state => state.groups.data;
@@ -18,10 +19,11 @@ const groupSelection = props =>
         [contactsSelector, groupsSelector],
         (contacts, groups) => {
             const group = groups[props.match.params.id];
-            const members = group
-                ? Object.keys(group.members).map(id => contacts[id])
-                : [];
+            if (!group) {
+                return { group: {}, members: [] };
+            }
 
+            const members = Object.keys(group.members).map(id => contacts[id]);
             return { group, members };
         }
     );
@@ -45,7 +47,7 @@ const GroupDetails = ({
     );
 
     const toContactDetails = contact => push(`/contacts/${contact.id}`);
-    const selection = Object.keys(group.members).filter(
+    const selection = Object.keys(group.members || []).filter(
         id => group.members[id].paid
     );
 
@@ -61,13 +63,14 @@ const GroupDetails = ({
         push('/groups');
     }, [removeGroup, push, group]);
 
-    if (!group || !group.id) {
+    if (!group.id) {
         return <Redirect to="/" />;
     }
 
     return (
         <Layout>
             <div className="contact-details">
+                <GroupBreadcrumbs name={group.name} />
                 <GroupDetailsHeader group={group} />
                 <Typography variant="h6" component="h4">
                     Members

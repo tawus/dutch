@@ -40,3 +40,14 @@ test('check header and deletion', () => {
 
     expect(screen.getByTestId('group-status')).toHaveTextContent('Archived');
 });
+
+test('invalid group id redirects to home page', () => {
+    insertGroupData(store);
+    render(appRenderer(<App />));
+
+    act(() => {
+        store.dispatch(push('/groups/x'));
+    });
+
+    expect(screen.queryByTestId('group-list')).toBeDefined();
+});
