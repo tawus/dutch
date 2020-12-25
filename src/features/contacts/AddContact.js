@@ -24,7 +24,7 @@ const AddContact = ({ addContact, firstContact, push }) => {
             <div className="add-contact form">
                 <form onSubmit={handleSubmit} data-testid="contact-form">
                     <TextField
-                        label="Contact Name"
+                        label={firstContact ? 'Your Name' : 'Contact Name'}
                         fullWidth
                         value={contact.name}
                         onChange={contactChange('name')}
@@ -60,7 +60,7 @@ const isValid = contact => {
 };
 
 const mapStateToProps = state => ({
-    firstContact: !Object.keys(state.contacts).length,
+    firstContact: !Object.keys(state.contacts.data).length,
 });
 
 const mapDispatchToProps = { addContact, push };

@@ -5,12 +5,12 @@ import { push } from 'connected-react-router';
 import { connect } from 'react-redux';
 import './Layout.css';
 
-const Layout = ({ push, children, app }) => (
+const Layout = ({ push, children, me }) => (
     <div className="layout" data-testid="layout">
         <AppBar
             onSettings={() => push('/settings')}
             onHome={() => push('/')}
-            userName={app.userName}
+            userName={me ? me.name : 'Guest'}
         />
         <div className="layout-body">{children}</div>
     </div>
@@ -22,12 +22,14 @@ Layout.propTypes = {
         PropTypes.node,
         PropTypes.arrayOf(PropTypes.node),
     ]).isRequired,
-    app: PropTypes.shape({
-        userName: PropTypes.string.isRequired,
-    }).isRequired,
+    me: PropTypes.shape({
+        name: PropTypes.string.isRequired,
+    }),
 };
 
-const mapStateToProps = state => ({ app: state.app });
+const mapStateToProps = state => ({
+    me: state.contacts.me,
+});
 
 const mapDispatchToProps = {
     push,

@@ -13,4 +13,6 @@ test('App is rendered', async () => {
     act(() => {
         userEvent.click(settings);
     });
+
+    expect(screen.queryByTestId('contact-name')).toBeDefined();
 });

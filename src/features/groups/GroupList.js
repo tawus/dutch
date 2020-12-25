@@ -30,6 +30,7 @@ const GroupList = ({ groups, onItemSelect, secondaryAction }) => {
                     <ListItemIcon>
                         <Badge
                             data-testid="unpaid-badge"
+                            color="error"
                             invisible={
                                 group.archived || unpaidMembers(group) === 0
                             }

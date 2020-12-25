@@ -39,6 +39,7 @@ const AddGroup = ({ addGroup, contacts, push }) => {
                 <div className="line-field">
                     <TextField
                         label="Group Name"
+                        placeholder="e.g. Wednesday Lunch"
                         name="name"
                         data-testid="group-name"
                         value={group.name}

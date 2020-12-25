@@ -15,7 +15,7 @@ test('render contacts and check details navigation', () => {
     const list = screen.getByTestId('contact-list');
     expect(list.children.length).toBe(3);
 
-    const filter = screen.getByRole('textbox', { testId: 'contact-filter' });
+    const filter = screen.getByRole('textbox');
     act(() => {
         userEvent.type(filter, 'Tom');
     });

@@ -72,7 +72,7 @@ const ContactDetails = ({ groups, contact, push, removeContact }) => {
                         color: 'secondary',
                         variant: 'contained',
                         fullWidth: true,
-                        disabled: !!groups.length,
+                        disabled: !!groups.length || contact.id === '1',
                     }}
                     onConfirm={removeContactAndRedirect}
                 />
