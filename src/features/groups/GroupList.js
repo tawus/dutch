@@ -29,11 +29,11 @@ const GroupList = ({ groups, onItemSelect, secondaryAction }) => {
                 >
                     <ListItemIcon>
                         <Badge
-                            color="secondary"
+                            data-testid="unpaid-badge"
                             invisible={
-                                group.archived || paidMembers(group) === 0
+                                group.archived || unpaidMembers(group) === 0
                             }
-                            badgeContent={paidMembers(group)}
+                            badgeContent={unpaidMembers(group)}
                         >
                             {group.archived ? (
                                 <DoneIcon />
@@ -64,5 +64,5 @@ GroupList.propTypes = {
     secondaryAction: PropTypes.func,
 };
 
-const paidMembers = group =>
-    Object.values(group.members).filter(m => m.paid).length;
+const unpaidMembers = group =>
+    Object.values(group.members).filter(m => !m.paid).length;

@@ -24,6 +24,17 @@ test('render groups and select item', () => {
     const list = screen.getByTestId('group-list').children;
     expect(list.length).toBe(3);
 
+    expect(
+        screen
+            .getAllByTestId('unpaid-badge')[0]
+            .querySelector('.MuiBadge-badge')
+    ).toContainHTML('2');
+    expect(
+        screen
+            .getAllByTestId('unpaid-badge')[1]
+            .querySelector('.MuiBadge-badge')
+    ).toContainHTML('1');
+
     act(() => {
         userEvent.click(screen.getAllByTestId('group-item')[1]);
     });
@@ -37,7 +48,7 @@ const testGroups = [
         members: { 1: { paid: false }, 2: { paid: false } },
         billAmount: 9.5,
         archived: false,
-        creationDate: new Date().valueOf(),
+        creationDate: new Date().valueOf() + 20,
     },
     {
         name: 'Two',
@@ -45,7 +56,7 @@ const testGroups = [
         members: { 1: { paid: false }, 2: { paid: true } },
         billAmount: 11.9,
         archived: false,
-        creationDate: new Date().valueOf(),
+        creationDate: new Date().valueOf() + 10,
     },
     {
         name: 'Three',
