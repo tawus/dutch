@@ -1,7 +1,7 @@
 # Dutch
 >  **dutch** with each person paying his or her own way
 
-A React Redux Based solution for the [assignment](https://github.com/vacuumlabs-interviews/3rd-round-Taha-Siddiqi/docs/Assignment.pdf). 
+A React Redux Based solution to the [problem](https://github.com/docs/Assignment.pdf). 
 
 ## Mission
 To create a web application to help users to keep track of the payments for a **shared meal**. 
